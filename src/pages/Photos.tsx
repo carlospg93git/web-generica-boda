@@ -7,8 +7,12 @@ const Photos = () => {
   const dropZoneRef = useRef<HTMLDivElement>(null);
   const [modalOpen, setModalOpen] = useState(false);
 
-  // Nueva función para interceptar selección o drop
+  // Función para mostrar el modal
   const handleFiles = () => {
+    // Prevenir cualquier intento de subida
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
     setModalOpen(true);
   };
 
@@ -28,8 +32,14 @@ const Photos = () => {
           setSuccess={() => {}}
         />
         {modalOpen && (
-          <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-            <div className="bg-white rounded-lg p-6 max-w-sm w-full shadow-lg text-center">
+          <div 
+            className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50"
+            onClick={() => setModalOpen(false)}
+          >
+            <div 
+              className="bg-white rounded-lg p-6 max-w-sm w-full shadow-lg text-center"
+              onClick={(e) => e.stopPropagation()}
+            >
               <h2 className="text-xl font-bold mb-4">La subida de archivos no está permitida en este prototipo</h2>
               <p className="mb-4 text-gray-700">
                 Si quieres probar esta funcionalidad escríbenos en{' '}

@@ -40,11 +40,20 @@ const DropZone: React.FC<DropZoneProps> = ({
     if (dropZoneRef.current) {
       dropZoneRef.current.classList.remove('bg-nature-50');
     }
+    // Prevenir la subida y mostrar el modal
     handleFiles();
+    // Limpiar el input si existe
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
   };
 
-  const handleFileSelect = (_event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    // Prevenir la subida y mostrar el modal
     handleFiles();
+    // Limpiar el input
+    event.target.value = '';
   };
 
   return (
@@ -62,9 +71,17 @@ const DropZone: React.FC<DropZoneProps> = ({
         accept="image/*,video/*"
         className="hidden"
         multiple
+        onClick={(e) => {
+          // Prevenir la apertura del diálogo de archivos
+          e.preventDefault();
+          handleFiles();
+        }}
       />
       <button
-        onClick={() => handleFiles()}
+        onClick={(e) => {
+          e.preventDefault();
+          handleFiles();
+        }}
         disabled={uploading}
         className="w-full min-h-[200px] border-2 border-dashed border-nature-300 rounded-lg p-8 flex flex-col items-center justify-center space-y-4 hover:border-nature-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
