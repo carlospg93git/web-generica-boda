@@ -2,6 +2,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
+import React from 'react';
 
 // Función para mostrar errores de carga de módulos
 function showModuleError(error: Error) {
@@ -54,6 +55,31 @@ function checkMimeTypeIssues() {
   return hasMimeTypeIssue;
 }
 
+// ErrorBoundary global para capturar errores de React
+class ErrorBoundary extends React.Component<any, { hasError: boolean; error: any }> {
+  constructor(props: any) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+  static getDerivedStateFromError(error: any) {
+    return { hasError: true, error };
+  }
+  componentDidCatch(error: any, errorInfo: any) {
+    console.error('ErrorBoundary atrapó un error:', error, errorInfo);
+  }
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div style={{ color: 'red', padding: 24 }}>
+          <h2>Se ha producido un error en la aplicación:</h2>
+          <pre>{String(this.state.error)}</pre>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
 // Función principal para inicializar la aplicación
 function initApp() {
   try {
@@ -76,7 +102,9 @@ function initApp() {
     console.log('Creando root de React...');
     root.render(
       <StrictMode>
-        <App />
+        <ErrorBoundary>
+          <App />
+        </ErrorBoundary>
       </StrictMode>
     );
     console.log('Aplicación renderizada correctamente');
