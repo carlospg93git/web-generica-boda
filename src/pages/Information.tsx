@@ -15,7 +15,7 @@ const Information = () => {
           <p className="text-gray-600">
             En esta web tendrás toda la información necesaria para disfrutar un día maravilloso junto con nosotros.
             Consulta las secciones en el menú superior de la izquierda y descubre todo lo que tenemos por delante este día.<br></br>
-            No te olvides de subir todas tus fotos y vídeos en la sección <a href="https://carlosymaria.es/fotos" target="_blank" rel="noopener noreferrer" className="text-nature-600 hover:underline">Fotos</a>, para poder crear un álbum lleno de recuerdos.
+            Puedes ver las fotos y vídeos del evento en la sección <a href="/fotos" className="text-nature-600 hover:underline">Fotos</a>.
           </p>
         </section>
 

@@ -5,7 +5,7 @@ type DropZoneProps = {
   fileInputRef: React.RefObject<HTMLInputElement>;
   dropZoneRef: React.RefObject<HTMLDivElement>;
   uploading: boolean;
-  handleFiles: (files: File[]) => void;
+  handleFiles: () => void;
   setError: (msg: string | null) => void;
   setSuccess: (val: boolean) => void;
 };
@@ -17,8 +17,8 @@ const DropZone: React.FC<DropZoneProps> = ({
   handleFiles,
   setError,
   setSuccess
-}) => {
-  const handleDragOver = (e: React.DragEvent) => {
+}: DropZoneProps) => {
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
     if (dropZoneRef.current) {
@@ -26,7 +26,7 @@ const DropZone: React.FC<DropZoneProps> = ({
     }
   };
 
-  const handleDragLeave = (e: React.DragEvent) => {
+  const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
     if (dropZoneRef.current) {
@@ -34,19 +34,17 @@ const DropZone: React.FC<DropZoneProps> = ({
     }
   };
 
-  const handleDrop = async (e: React.DragEvent) => {
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
     if (dropZoneRef.current) {
       dropZoneRef.current.classList.remove('bg-nature-50');
     }
-    const files = Array.from(e.dataTransfer.files);
-    await handleFiles(files);
+    handleFiles();
   };
 
-  const handleFileSelect = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(event.target.files || []);
-    await handleFiles(files);
+  const handleFileSelect = (_event: React.ChangeEvent<HTMLInputElement>) => {
+    handleFiles();
   };
 
   return (
@@ -66,7 +64,7 @@ const DropZone: React.FC<DropZoneProps> = ({
         multiple
       />
       <button
-        onClick={() => fileInputRef.current?.click()}
+        onClick={() => handleFiles()}
         disabled={uploading}
         className="w-full min-h-[200px] border-2 border-dashed border-nature-300 rounded-lg p-8 flex flex-col items-center justify-center space-y-4 hover:border-nature-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
