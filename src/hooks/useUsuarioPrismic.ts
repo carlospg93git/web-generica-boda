@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import * as prismic from '@prismicio/client';
+import { asText } from '@prismicio/helpers';
 
 const REPO_NAME = 'invitaciondigital';
 const API_ENDPOINT = `https://${REPO_NAME}.cdn.prismic.io/api/v2`;
@@ -26,8 +27,8 @@ export function useUsuarioPrismic() {
         const response = await client.getSingle('usuario');
         setUsuario({
           imagen: response.data.imagen.url,
-          nombre_uno: response.data.nombre_uno,
-          nombre_dos: response.data.nombre_dos,
+          nombre_uno: asText(response.data.nombre_uno) || '',
+          nombre_dos: asText(response.data.nombre_dos) || '',
           fecha: response.data.fecha,
         });
       } catch (err: any) {
