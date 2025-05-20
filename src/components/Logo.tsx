@@ -17,7 +17,7 @@ const Logo: React.FC<LogoProps> = ({
   const inicial2 = nombre_dos.trim().charAt(0).toUpperCase();
   return (
     <div
-      className="fixed top-0 left-0 z-50 p-4"
+      className="fixed top-0 left-1/2 -translate-x-1/2 z-50 p-4"
       style={{ pointerEvents: 'none' }}
     >
       <div
@@ -29,12 +29,13 @@ const Logo: React.FC<LogoProps> = ({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          fontWeight: 'bold',
+          fontWeight: 400,
           fontSize: size * 0.38,
           color: '#222',
           boxShadow: '0 2px 8px #0001',
           userSelect: 'none',
-          fontFamily: 'Playfair Display, serif',
+          fontFamily: "'Montez', 'Cookie', cursive",
+          letterSpacing: '0.05em',
         }}
         aria-label={`Logo de ${nombre_uno} y ${nombre_dos}`}
       >
