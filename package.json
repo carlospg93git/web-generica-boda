@@ -35,7 +35,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build",
+    "build": "tsc --noEmit && vite build && cp public/_headers dist/_headers && cp public/_routes.json dist/_routes.json",
     "preview": "vite preview",
     "deploy:worker": "wrangler deploy worker.js"
   }
