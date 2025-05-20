@@ -2,15 +2,18 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Logo from './Logo';
 import Navigation from './Navigation';
+import { useUsuarioPrismic } from '../hooks/useUsuarioPrismic';
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
+  const { usuario } = useUsuarioPrismic();
+  const iniciales = usuario ? `${usuario.nombre_uno[0]}${usuario.nombre_dos[0]}`.toUpperCase() : 'M&C';
   return (
     <div className="min-h-screen bg-nature-50 font-body flex flex-col">
-      <Logo />
+      <Logo iniciales={iniciales} />
       <motion.div 
         className="flex-1 pt-16 pb-16"
         initial={{ opacity: 0, y: 20 }}
