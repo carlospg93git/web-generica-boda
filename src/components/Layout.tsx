@@ -10,10 +10,9 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { usuario } = useUsuarioPrismic();
-  const iniciales = usuario ? `${usuario.nombre_uno[0]}${usuario.nombre_dos[0]}`.toUpperCase() : 'M&C';
   return (
     <div className="min-h-screen bg-nature-50 font-body flex flex-col">
-      <Logo iniciales={iniciales} />
+      <Logo nombre_uno={usuario?.nombre_uno || ''} nombre_dos={usuario?.nombre_dos || ''} />
       <motion.div 
         className="flex-1 pt-16 pb-16"
         initial={{ opacity: 0, y: 20 }}
