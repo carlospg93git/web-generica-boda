@@ -58,28 +58,27 @@ function checkMimeTypeIssues() {
 function initApp() {
   try {
     console.log('Iniciando aplicación...');
-    
     // Verificar problemas de MIME type
     const mimeTypeIssues = checkMimeTypeIssues();
     if (mimeTypeIssues) {
-      console.error('Se detectaron problemas de MIME type');
+      console.error('Se detectaron problemas de MIME type', mimeTypeIssues);
       showModuleError(new Error('Problemas de MIME type detectados. Por favor, contacta al administrador.'));
       return;
     }
-    
     // Intentar renderizar la aplicación
     const rootElement = document.getElementById('root');
     if (!rootElement) {
+      console.error('No se encontró el elemento root');
       throw new Error('No se encontró el elemento root');
     }
-    
+    console.log('Elemento root encontrado:', rootElement);
     const root = createRoot(rootElement);
+    console.log('Creando root de React...');
     root.render(
       <StrictMode>
         <App />
       </StrictMode>
     );
-    
     console.log('Aplicación renderizada correctamente');
   } catch (error) {
     console.error('Error al inicializar la aplicación:', error);
